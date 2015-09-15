@@ -1,4 +1,4 @@
-package com.assign.service;
+package com.dorakucommitters.assign.service;
 
 import java.util.List;
 
@@ -6,32 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.assign.repository.AssignRepository;
-import com.dorakucommitters.domain.Employee;
+import com.dorakucommitters.assign.domain.Employee;
+import com.dorakucommitters.assign.repository.EmployeeRepository;
 
 @Service
 @Transactional
-public class AssignService {
+public class EmployeeService {
     @Autowired
-    AssignRepository assignRepository;
+    EmployeeRepository employeeRepository;
 
     public List<Employee> findAll() {
-        return assignRepository.findAllOrderByName();
+        return employeeRepository.findAllOrderByName();
     }
 
     public Employee findOne(Integer id) {
-        return assignRepository.findOne(id);
+        return employeeRepository.findOne(id);
     }
 
     public Employee create(Employee employee) {
-        return assignRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     public Employee update(Employee employee) {
-        return assignRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     public void delete(Integer id) {
-        assignRepository.delete(id);
+        employeeRepository.delete(id);
     }
 }

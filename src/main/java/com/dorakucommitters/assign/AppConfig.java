@@ -1,4 +1,4 @@
-package com.dorakucommitters;
+package com.dorakucommitters.assign;
 
 import javax.sql.DataSource;
 
