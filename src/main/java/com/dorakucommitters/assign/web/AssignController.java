@@ -2,7 +2,6 @@ package com.dorakucommitters.assign.web;
 
 import java.security.Principal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -10,15 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.dorakucommitters.assign.service.EmployeeService;
-
 
 @Controller
 @RequestMapping("/")
 public class AssignController {
-
-	@Autowired
-	EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.GET)
     String list(Principal principal, Model model) {
@@ -26,14 +20,6 @@ public class AssignController {
 
         return "assign/hotentry";
     }
-
-	private void addAttributeUserName(Principal principal, Model model) {
-		if (principal != null) {
-	    	Authentication auth = (Authentication)principal;
-	        User user = (User)auth.getPrincipal();
-	        model.addAttribute("username", user.getUsername());
-    	}
-	}
 
     @RequestMapping(value = "assign/login")
     public String login() {
@@ -62,4 +48,20 @@ public class AssignController {
     	addAttributeUserName(principal, model);
         return "assign/mastermaintenance";
     }
+
+    /**
+     * ユーザー名設定<br>
+     * ログイン情報をもとに、メニューに表示するユーザー名を設定する
+     * @param principal
+     * @param model
+     */
+    private void addAttributeUserName(Principal principal, Model model) {
+		if (principal != null) {
+	    	Authentication auth = (Authentication)principal;
+	        User user = (User)auth.getPrincipal();
+	        model.addAttribute("username", user.getUsername());
+    	}
+	}
+
+
 }

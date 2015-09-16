@@ -45,16 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	@Autowired
     	EmployeeService employeeService;
 
+
     	@Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
 
         	List<Employee> employees = employeeService.findAll();
         	for (Employee emp : employees) {
-        		System.out.println(emp.toString());
+        		auth.inMemoryAuthentication().withUser(emp.getUser_id()).password(emp.getPassword()).roles("USER");
         	}
-
-            auth.inMemoryAuthentication().withUser("user1").password("password1").roles("USER");
-            auth.inMemoryAuthentication().withUser("user2").password("password2").roles("USER");
         }
     }
 }
