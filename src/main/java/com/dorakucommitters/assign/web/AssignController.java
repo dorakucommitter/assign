@@ -6,8 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -47,6 +49,43 @@ public class AssignController {
     public String masterMaintenance(Principal principal, Model model) {
     	addAttributeUserName(principal, model);
         return "assign/mastermaintenance";
+    }
+
+    @RequestMapping(value="assign/skilllist/{value}",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public String changePulldown(@PathVariable("value")String value) {
+    	StringBuilder s = new StringBuilder();
+        String str="";
+        s.append("[");
+        //文字列の中にダブルクォーテーションを入れるため、エスケープさせるのを忘れないこと
+        for(int i=0; i<3; i++){
+            s.append("{\"");
+            s.append("itemValue");
+            s.append("\"");
+            s.append(":");
+            s.append("\"");
+            s.append(value);
+            s.append(String.valueOf(i));
+            s.append("\"");
+            s.append(",");
+            s.append("\"");
+            s.append("itemLabel");
+            s.append("\"");
+            s.append(":");
+            s.append("\"");
+            s.append(value);
+            s.append("_");
+            s.append(String.valueOf(i));
+            s.append("\"}");
+            s.append(",");
+        }
+
+        //末尾のカンマを削除し、[{}]でくくった形になるようにしてStringに変換する
+        s.deleteCharAt(s.lastIndexOf(","));
+        s.append("]");
+        str = s.toString();
+
+        return str;
     }
 
     /**

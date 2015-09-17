@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
         	.authorizeRequests()
-        		.antMatchers("/webjars/**").permitAll()
+        		.antMatchers("/webjars/**", "/javascript/**").permitAll()
         		.anyRequest().authenticated()
         		.and()
         	.formLogin()
@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         	List<Employee> employees = employeeService.findAll();
         	for (Employee emp : employees) {
-        		auth.inMemoryAuthentication().withUser(emp.getUser_id()).password(emp.getPassword()).roles("USER");
+        		auth.inMemoryAuthentication().withUser(emp.getUser_id()).password(emp.getPassword()).roles(emp.getRoll());
         	}
         }
     }
