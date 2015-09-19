@@ -57,7 +57,7 @@ public class AssignController {
     	StringBuilder s = new StringBuilder();
         String str="";
         s.append("[");
-        //文字列の中にダブルクォーテーションを入れるため、エスケープさせるのを忘れないこと
+
         for(int i=0; i<3; i++){
             s.append("{\"");
             s.append("itemValue");
@@ -80,12 +80,18 @@ public class AssignController {
             s.append(",");
         }
 
-        //末尾のカンマを削除し、[{}]でくくった形になるようにしてStringに変換する
         s.deleteCharAt(s.lastIndexOf(","));
         s.append("]");
         str = s.toString();
 
         return str;
+    }
+
+    @RequestMapping(value="assign/skilltable",method=RequestMethod.POST,produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public String clickButtonSkillSearch() {
+
+        return "";
     }
 
     /**
