@@ -1,5 +1,6 @@
 package com.dorakucommitters.assign;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AppConfig {
 
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Bean
-    CharacterEncodingFilter characterEncodingFilter() {
+    public Filter characterEncodingFilter() {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);

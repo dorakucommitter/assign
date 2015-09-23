@@ -14,12 +14,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	Page<Employee> findAll(Pageable pageable);
 
-    @Query("SELECT x FROM Employee x ORDER BY x.employee_id, x.name")
+    @Query("SELECT x FROM Employee x ORDER BY x.employeeId, x.name")
     List<Employee> findAllOrderByName();
 
-    @Query("SELECT x FROM Employee x ORDER BY x.employee_id, x.name")
+    @Query("SELECT x FROM Employee x ORDER BY x.employeeId, x.name")
     Page<Employee> findAllOrderByName(Pageable pageable);
 
-    @Query("SELECT x FROM Employee x WHERE x.user_id = :username")
+    @Query("SELECT x FROM Employee x WHERE x.userId = :username")
     List<Employee> findOnebyLoginId(@Param("username")String username);
 }
