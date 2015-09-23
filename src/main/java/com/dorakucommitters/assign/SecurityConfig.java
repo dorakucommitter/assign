@@ -27,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/webjars/**", "/javascript/**").permitAll()
         		.anyRequest().authenticated()
         		.and()
+        	.csrf()
+        		.disable()
         	.formLogin()
         		.loginPage("/assign/login")
         		.permitAll()

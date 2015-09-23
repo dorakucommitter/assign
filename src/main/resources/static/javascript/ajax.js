@@ -3,7 +3,6 @@ $(function(){
         var value = $("#selectionField option:selected").val();
         $.get("skilllist/" + value ,function(data){
             var obj = $.parseJSON(data);
-            console.debug(obj[0].itemValue)
             $("#selectionSkill").html("");
             for(var i=0;i<obj.length;i++){
                 $("#selectionSkill").append("<option value="+obj[i].itemValue+">"+obj[i].itemLabel+"</option>");
@@ -15,14 +14,6 @@ $(function(){
 $(function() {
     $("#buttonSkillSearch").click(function() {
 
-        $("#tableSkill").append(
-        		$("<tr></tr>")
-	                .append($("<td></td>").text("1"))
-	                .append($("<td></td>").text("2"))
-	                .append($("<td></td>").text("3"))
-        		);
-
-    /*
 
         var param1 = $("#selectionField").val();
         var param2 = $("#selectionSkill").val();
@@ -30,17 +21,26 @@ $(function() {
         var data = {field: param1, skill: param2, name: param3 };
         $.ajax({
             type:"post",
-            url:"http://localhost:8080/assign/skilltable",
+            url:"skilltable",
             data:JSON.stringify(data),
             contentType: 'application/json',
             dataType: "json",
             success: function(json_data) {
-              // 成功時の処理
-            	alert("");
+                // 成功時の処理
+                for(var i=0;i<json_data.length;i++){
+
+                    $("#tableSkill").append(
+                    		$("<tr></tr>")
+    			                .append($("<td></td>").text(json_data[i].itemName))
+    			                .append($("<td></td>").text(json_data[i].itemSkill))
+    			                .append($("<td></td>").text(json_data[i].itemExperience))
+                    		);
+                }
             }
+
         });
 
-
+/*
         $.post({
             "http://localhost:8080/assign/skilltable",
             {field : param1, skill : param2, name : param3 },
