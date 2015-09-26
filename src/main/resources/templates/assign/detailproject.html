@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <head>
+    <title>案件詳細</title>
+    <link th:remove="all" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}" />
+    <link th:remove="all" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap-theme.min.css}" />
+  </head>
+
+  <body>
+
+    <div layout:fragment="content" class="col-sm-12">
+ <div  class="container">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-condensed">
+        <tbody>
+          <tr><td>案件名称</td><td th:text="${案件.案件名称}">○○案件</td></tr>
+          <tr><td>期間</td><td th:text="${案件.開始年月日} + ' ～ ' + {案件.終了年月日}">20XX/0X/XX ～ 20X/0X/XX</td></tr>
+          <tr><td>顧客</td><td th:text="${顧客案件.会社ID}">株式会社△△</td></tr>
+          <tr><td colspan="2">概要</td></tr>
+          <tr><td colspan="2" th:text="${案件.概要}">○○案件の概要<br>××してます。</td></tr>
+          <tr><td>規模</td><td th:text="${案件.規模}">○○名</td></tr>
+          <tr><td colspan="2">募集条件</td></tr>
+          <tr><td colspan="2" th:text="${案件募集条件.条件区分ID}">○○出来る人<br>△△まで可能</td></tr>
+          <tr><td colspan="2">ステークホルダー</td></tr>
+          <tr><td colspan="2" th:text="${ステークホルダー.ステークホルダー名}">○○さん<br>△△さん</td></tr>
+        </tbody>
+      </table>
+
+
+
+    </div>
+
+  </body>
+</html>
