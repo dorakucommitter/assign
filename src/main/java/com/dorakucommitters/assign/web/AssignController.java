@@ -1,7 +1,9 @@
 package com.dorakucommitters.assign.web;
 
 import java.security.Principal;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -13,12 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dorakucommitters.assign.domain.Field;
 import com.dorakucommitters.assign.form.SearchSkillForm;
+import com.dorakucommitters.assign.service.FieldService;
+import com.dorakucommitters.assign.service.HoldingQualificationService;
+import com.dorakucommitters.assign.service.QualificationService;
 
 
 @Controller
 @RequestMapping("/")
 public class AssignController {
+
+    @Autowired
+    FieldService fieldService;
+    @Autowired
+    QualificationService qualificationService;
+    @Autowired
+    HoldingQualificationService holdingQualificationService;
 
     @RequestMapping(method = RequestMethod.GET)
     String list(Principal principal, Model model) {
@@ -40,6 +53,8 @@ public class AssignController {
     @RequestMapping(value = "assign/searchskill")
     public String searchSkill(Principal principal, Model model) {
     	addAttributeUserName(principal, model);
+    	List<Field>fields = fieldService.findAll();
+    	model.addAttribute("fields", fields);
         return "assign/searchskill";
     }
 
@@ -55,60 +70,19 @@ public class AssignController {
         return "assign/mastermaintenance";
     }
 
+
     @RequestMapping(value="assign/skilllist/{value}",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
     @ResponseBody
     public String changePulldown(@PathVariable("value")String value) {
-    	StringBuilder s = new StringBuilder();
-        String str="";
-        s.append("[");
 
-        for(int i=0; i<3; i++){
-            s.append("{\"itemValue\": \"");
-            s.append(value);
-            s.append(String.valueOf(i));
-            s.append("\",");
-            s.append("\"itemLabel\": \"");
-            s.append(value);
-            s.append("_");
-            s.append(String.valueOf(i));
-            s.append("\"},");
-        }
-
-        s.deleteCharAt(s.lastIndexOf(","));
-        s.append("]");
-        str = s.toString();
-
-        return str;
+        return qualificationService.createQualificationJsonByFieldId(value);
     }
 
     @RequestMapping(value="assign/skilltable",method=RequestMethod.POST,produces="text/plain;charset=UTF-8",consumes=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String clickButtonSkillSearch(@RequestBody SearchSkillForm dto) {
 
-    	StringBuilder s = new StringBuilder();
-        String str="";
-        s.append("[");
-
-        for(int i=0; i<3; i++){
-            s.append("{\"itemName\": \"");
-            s.append("R.H");
-            s.append(String.valueOf(i));
-            s.append("\",");
-            s.append("\"itemSkill\": \"");
-            s.append("SKILL");
-            s.append("_");
-            s.append(String.valueOf(i));
-            s.append("\",");
-            s.append("\"itemExperience\": \"");
-            s.append("A3");
-            s.append("\"},");
-        }
-
-        s.deleteCharAt(s.lastIndexOf(","));
-        s.append("]");
-        str = s.toString();
-
-        return str;
+    	return holdingQualificationService.createSkillList(dto);
     }
 
     /**

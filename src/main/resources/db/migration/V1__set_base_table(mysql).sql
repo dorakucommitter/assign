@@ -37,14 +37,29 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `assign`.`field`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `assign`.`field` (
+  `field_id` INT(11) NOT NULL,
+  `field_name` VARCHAR(40) NULL,
+  PRIMARY KEY (`field_id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+-- -----------------------------------------------------
 -- Table `assign`.`qualification`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `assign`.`qualification` (
   `qualification_id` INT(11) NOT NULL,
-  `qualification_section` CHAR(3) NOT NULL,
   `qualification_name` VARCHAR(40) NOT NULL,
+  `field_id` INT NOT NULL,
   PRIMARY KEY (`qualification_id`) ,
-  UNIQUE INDEX `QUALIFICATION_SECTION_UNIQUE` (`qualification_section` ASC) )
+  INDEX `fk_qualification_field1_idx` (`field_id` ASC),
+  CONSTRAINT `fk_qualification_field1`
+    FOREIGN KEY (`field_id`)
+    REFERENCES `assign`.`field` (`field_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -53,23 +68,26 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `assign`.`holding_qualification`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `assign`.`holding_qualification` (
-  `employee_employee_id` INT(11) NOT NULL,
-  `qualification_qualification_id` INT(11) NOT NULL,
-  PRIMARY KEY (`employee_employee_id`, `qualification_qualification_id`) ,
-  INDEX `fk_HOLDING_QUALIFICATION_EMPLOYEE_idx` (`employee_employee_id` ASC) ,
-  INDEX `fk_HOLDING_QUALIFICATION_QUALIFICATION1_idx` (`qualification_qualification_id` ASC) ,
+  `employee_id` INT(11) NOT NULL,
+  `qualification_id` INT(11) NOT NULL,
+  `date_of_acquisition` DATE,
+  `years_of_experience` INT(2),
+  PRIMARY KEY (`employee_id`, `qualification_id`) ,
+  INDEX `fk_HOLDING_QUALIFICATION_EMPLOYEE_idx` (`employee_id` ASC) ,
+  INDEX `fk_HOLDING_QUALIFICATION_QUALIFICATION1_idx` (`qualification_id` ASC) ,
   CONSTRAINT `fk_HOLDING_QUALIFICATION_EMPLOYEE`
-    FOREIGN KEY (`employee_employee_id`)
+    FOREIGN KEY (`employee_id`)
     REFERENCES `assign`.`employee` (`employee_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_HOLDING_QUALIFICATION_QUALIFICATION1`
-    FOREIGN KEY (`qualification_qualification_id`)
+    FOREIGN KEY (`qualification_id`)
     REFERENCES `assign`.`qualification` (`qualification_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
