@@ -88,6 +88,72 @@ CREATE TABLE IF NOT EXISTS `assign`.`holding_qualification` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `assign`.`project`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `assign`.`project` (
+  `project_id` INT NOT NULL ,
+  `project_name` VARCHAR(45) NULL ,
+  `start_of_project` DATE NULL ,
+  `end_of_project` DATE NULL ,
+  `wanted_start` DATE NULL ,
+  `wanted_end` DATE NULL ,
+  `outline` VARCHAR(128) NULL ,
+  `scale` VARCHAR(45) NULL ,
+  PRIMARY KEY (`project_id`)  )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `assign`.`request_skills`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `assign`.`request_skills` (
+  `request_skills_id` INT NOT NULL ,
+  `qualification_id` INT NOT NULL ,
+  `project_id` INT NOT NULL ,
+  PRIMARY KEY (`request_skills_id`, `qualification_id`, `project_id`)  ,
+  INDEX `fk_request_skills_qualification1_idx` (`qualification_id` ASC)  ,
+  INDEX `fk_request_skills_project1_idx` (`project_id` ASC)  ,
+  CONSTRAINT `fk_request_skills_qualification1`
+    FOREIGN KEY (`qualification_id`)
+    REFERENCES `assign`.`qualification` (`qualification_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_request_skills_project1`
+    FOREIGN KEY (`project_id`)
+    REFERENCES `assign`.`project` (`project_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `assign`.`engaged_in`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `assign`.`engaged_in` (
+  `engaged_in_id` INT NOT NULL ,
+  `engaged_in_start` DATE NULL ,
+  `engaged_in_end` DATE NULL ,
+  `exit_prospects` DATE NULL ,
+  `employee_id` INT NOT NULL ,
+  `project_id` INT NOT NULL ,
+  PRIMARY KEY (`engaged_in_id`, `employee_id`, `project_id`)  ,
+  INDEX `fk_engaged_in_employee1_idx` (`employee_id` ASC)  ,
+  INDEX `fk_engaged_in_project1_idx` (`project_id` ASC)  ,
+  CONSTRAINT `fk_engaged_in_employee1`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `assign`.`employee` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_engaged_in_project1`
+    FOREIGN KEY (`project_id`)
+    REFERENCES `assign`.`project` (`project_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
