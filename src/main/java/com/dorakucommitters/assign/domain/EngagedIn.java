@@ -38,4 +38,52 @@ public class EngagedIn {
     @Column(name = "project_id")
     private Integer projectId;
 
+	public Integer getEngagedInId() {
+		return engagedInId;
+	}
+
+	public void setEngagedInId(Integer engagedInId) {
+		this.engagedInId = engagedInId;
+	}
+
+	public Date getEngagedInStart() {
+		return engagedInStart;
+	}
+
+	public void setEngagedInStart(Date engagedInStart) {
+		this.engagedInStart = engagedInStart;
+	}
+
+	public Date getEngagedInEnd() {
+		return engagedInEnd;
+	}
+
+	public void setEngagedInEnd(Date engagedInEnd) {
+		this.engagedInEnd = engagedInEnd;
+	}
+
+	public Date getExitProspects() {
+		return exitProspects;
+	}
+
+	public void setExitProspects(Date exitProspects) {
+		this.exitProspects = exitProspects;
+	}
+
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public Integer getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+
 }

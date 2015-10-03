@@ -15,16 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dorakucommitters.assign.domain.EngagedInJoinOthers;
 import com.dorakucommitters.assign.domain.Field;
+import com.dorakucommitters.assign.domain.ProjectJoinOthers;
 import com.dorakucommitters.assign.form.SearchSkillForm;
 import com.dorakucommitters.assign.service.FieldService;
 import com.dorakucommitters.assign.service.HoldingQualificationService;
+import com.dorakucommitters.assign.service.HotEntryService;
 import com.dorakucommitters.assign.service.QualificationService;
 
 
 @Controller
 @RequestMapping("/")
-public class AssignController {
+public class AssignController<T> {
 
     @Autowired
     FieldService fieldService;
@@ -32,12 +35,17 @@ public class AssignController {
     QualificationService qualificationService;
     @Autowired
     HoldingQualificationService holdingQualificationService;
+    @Autowired
+    HotEntryService hotEntryService;
 
     @RequestMapping(method = RequestMethod.GET)
-    String list(Principal principal, Model model) {
+    String hotentry(Principal principal, Model model) {
     	addAttributeUserName(principal, model);
-
-        return "assign/hotentry";
+    	List<ProjectJoinOthers>projects = hotEntryService.createProjectJoinOthersList();
+    	model.addAttribute("projects", projects);
+    	List<EngagedInJoinOthers>engagedinlist = hotEntryService.createEngagedInJoinOthersList();
+    	model.addAttribute("engagedinlist", engagedinlist);
+    	return "assign/hotentry";
     }
 
     @RequestMapping(value = "assign/login")
