@@ -66,10 +66,26 @@ public class AssignController<T> {
         return "assign/searchskill";
     }
 
+    @RequestMapping(value = "assign/detailskill")
+    public String detailSkill(Principal principal, Model model) {
+    	addAttributeUserName(principal, model);
+    	List<Field>fields = fieldService.findAll();
+    	model.addAttribute("fields", fields);
+        return "assign/detailskill";
+    }
+
     @RequestMapping(value = "assign/searchproject")
     public String searchProject(Principal principal, Model model) {
     	addAttributeUserName(principal, model);
         return "assign/searchproject";
+    }
+
+    @RequestMapping(value = "assign/detailproject")
+    public String detailProject(Principal principal, Model model) {
+    	addAttributeUserName(principal, model);
+    	List<Field>fields = fieldService.findAll();
+    	model.addAttribute("fields", fields);
+        return "assign/detailproject";
     }
 
     @RequestMapping(value = "assign/mastermaintenance")

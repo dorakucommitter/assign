@@ -39,11 +39,11 @@ $(function() {
                 for(var i=0;i<json_data.length;i++){
 
                     $("#tableSkill").append(
-                    		$("<tr></tr>")
-    			                .append($("<td></td>").text(json_data[i].itemName))
-    			                .append($("<td></td>").text(json_data[i].itemSkill))
-    			                .append($("<td></td>").text(json_data[i].itemExperience))
-                    		);
+                		$("<tr></tr>")
+			                .append($("<td><a href='/assign/detailskill?id="+ json_data[i].itemEmployeeId + "'>" + json_data[i].itemName + "</a></td>"))
+			                .append($("<td></td>").text(json_data[i].itemSkill))
+			                .append($("<td></td>").text(json_data[i].itemExperience))
+            		);
                 }
             }
 

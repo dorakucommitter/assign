@@ -51,6 +51,9 @@ public class HoldingQualificationService {
 	            s.append("\"itemSkill\": \"");
 	            s.append(rec.getQualificationName());
 	            s.append("\",");
+	            s.append("\"itemEmployeeId\": \"");
+	            s.append(rec.getEmployeeId());
+	            s.append("\",");
 	            s.append("\"itemExperience\": \"");
 	            s.append(rec.getYearsOfExperience());
 	            s.append("\"},");

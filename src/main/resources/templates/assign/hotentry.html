@@ -29,7 +29,7 @@
                 	<td th:text="${#dates.format(project.wantedStart, 'yyyy/MM/dd')}">2015-09-01</td>
                 	<td th:text="${#dates.format(project.wantedEnd, 'yyyy/MM/dd')}">2015-09-31</td>
                		<td th:text="${project.qualificationName}">ネットワーク構築</td>
-					<td><a th:href="@{/assign/searchproject(id=${project.projectId})}" th:text="${project.projectName}">ＸＣＶ商事</a></td>
+					<td><a th:href="@{/assign/detailproject(id=${project.projectId})}" th:text="${project.projectName}">ＸＣＶ商事</a></td>
 		      </tr>
 		    </tbody>
 	    </table>
@@ -48,21 +48,11 @@
 		      </tr>
 		    </thead>
 		    <tbody>
-		      <tr>
-		        <td>2015-10-01</td>
-		        <td>R.H</td>
-		        <td>ＡＢＣシステム</td>
-		      </tr>
-		      <tr>
-		      <td>2015-10-11</td>
-		        <td>H.N</td>
-		        <td>ＸＸＸ証券</td>
-		      </tr>
-		      <tr>
-		        <td>2015-10-11</td>
-		        <td>KATO</td>
-		        <td>ＹＹＹ会社</td>
-		      </tr>
+				<tr th:each="engagedin : ${engagedinlist}">
+		        	<td th:text="${#dates.format(engagedin.exitProspects, 'yyyy/MM/dd')}">2015-09-01</td>
+					<td><a th:href="@{/assign/detailskill(id=${engagedin.employeeId})}" th:text="${engagedin.nickname}">R.H</a></td>
+ 					<td><a th:href="@{/assign/detailproject(id=${engagedin.projectId})}" th:text="${engagedin.projectName}">ＡＢＣシステム</a></td>
+		      	</tr>
 		    </tbody>
 	    </table>
 	  </div>
