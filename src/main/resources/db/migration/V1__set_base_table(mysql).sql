@@ -40,7 +40,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `assign`.`field`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `assign`.`field` (
-  `field_id` INT(11) NOT NULL,
+  `field_id` INT(11) NOT NULL AUTO_INCREMENT,
   `field_name` VARCHAR(40) NULL,
   PRIMARY KEY (`field_id`) )
 ENGINE = InnoDB

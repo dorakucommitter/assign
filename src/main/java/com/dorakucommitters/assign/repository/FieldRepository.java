@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.dorakucommitters.assign.domain.Field;
 
 @Repository
-public interface FieldRepository extends JpaRepository<Field, Integer> {
+public interface FieldRepository extends JpaRepository<Field, Integer>
+{
 
 }

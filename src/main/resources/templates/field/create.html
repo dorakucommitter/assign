@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+  <head>
+    <title>専門分野の登録</title>
+    <link th:remove="all" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}" />
+    <link th:remove="all" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap-theme.min.css}" />
+  </head>
+
+  <body>
+
+    <div layout:fragment="content" class="col-sm-12">
+      <form th:action="@{/field/create}" th:object="${fieldForm}" class="form-horizontal" method="post">
+        <fieldset>
+          <legend>専門分野の登録</legend>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('fieldName')}? 'has-error has-feedback'">
+              <label for="fieldName" class="col-sm-2 control-label">名称</label>
+
+              <div class="col-sm-10">
+                <input type="text" th:field="*{fieldName}"
+                  class="form-control" placeholder="専門分野の名称です。" value="" />
+                <span th:if="${#fields.hasErrors('fieldName')}" th:errors="*{fieldName}"
+                  class="help-block">error!</span>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">登録</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+    </div>
+
+  </body>
+</html>

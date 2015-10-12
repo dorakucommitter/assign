@@ -8,7 +8,7 @@ $(function() {
     animate  : false,
     html     : true,
     title    : '管理者メニュー',
-    content  : '<a href="/employee">社員情報</a><br />',
+    content  : '<a href="/employee">社員情報</a><br />' + '<hr />' + '<a href="/field">専門分野</a><br />',
     /* popoverで表示される内容のテンプレ */
     template: '<div class="popover popover-medium" style="font-size:14pt;font-weight:bold;width:240px;"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
     /* 何に効いてくるのか不明 */

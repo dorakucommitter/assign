@@ -87,9 +87,8 @@ public class EmployeeController
     {
         Employee employee = this.employeeService.findOne(id);
         logger.info(employee.toString());
-
         BeanUtils.copyProperties(employee, form);
-        this.employeeService.update(employee);
+
         model.addAttribute("username", loginEmployee.getUsername());
         return "employee/edit";
     }
